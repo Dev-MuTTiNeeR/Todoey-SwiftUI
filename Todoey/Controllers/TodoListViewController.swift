@@ -46,14 +46,16 @@ class TodoListViewController: UITableViewController {
     
     // MARK: - TableView Delegate Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Works like if else        
-        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
+        // Works like if else
         
+//        context.delete(itemArray[indexPath.row])
+//        itemArray.remove(at: indexPath.row)
+        
+        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
+                
         saveItems()
         
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        tableView.reloadRows(at: [indexPath], with: .fade)
         
     }
     
@@ -74,8 +76,6 @@ class TodoListViewController: UITableViewController {
             
             self.itemArray.append(newItem)
             self.saveItems()
-            self.tableView.reloadData()
-            
         }
         
         alert.addTextField { alertTextField in
@@ -96,6 +96,7 @@ class TodoListViewController: UITableViewController {
         } catch {
             print("Error saving context \(error.localizedDescription)")
         }
+        tableView.reloadData()
     }
     
     func loadItems() {
