@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class TodoListViewController: UITableViewController {
     
@@ -16,7 +17,9 @@ class TodoListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //loadItems()
+        loadItems()
+        
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
     }
     
     
@@ -43,7 +46,7 @@ class TodoListViewController: UITableViewController {
     
     // MARK: - TableView Delegate Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Works like if else
+        // Works like if else        
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         
         saveItems()
@@ -88,7 +91,6 @@ class TodoListViewController: UITableViewController {
     
     // MARK: - Model Manupulation Methods
     func saveItems() {
-        
         do {
             try context.save()
         } catch {
@@ -96,16 +98,13 @@ class TodoListViewController: UITableViewController {
         }
     }
     
-//    func loadItems() {
-//        if let data = try? Data(contentsOf: dataFilePath!) {
-//            let decoder = PropertyListDecoder()
-//            
-//            do {
-//                itemArray = try decoder.decode([Item].self, from: data)
-//            } catch {
-//                print("Error decoding item array, \(error.localizedDescription)")
-//            }
-//        }
-//    }
-//    
+    func loadItems() {
+        let request: NSFetchRequest<Item> = Item.fetchRequest()
+        do {
+            itemArray = try context.fetch(request)
+        } catch {
+            print("Error fetching data from context \(error)")
+        }
+    }
+    
 }
