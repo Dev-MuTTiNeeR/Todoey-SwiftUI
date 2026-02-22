@@ -47,7 +47,7 @@ class TodoListViewController: UITableViewController {
         // Works like if else
         
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
-                
+        
         saveItems()
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -100,6 +100,7 @@ class TodoListViewController: UITableViewController {
         } catch {
             print("Error fetching data from context \(error)")
         }
+        tableView.reloadData()
     }
 }
 
@@ -114,5 +115,15 @@ extension TodoListViewController: UISearchBarDelegate {
         request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         
         loadItems(with: request)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            loadItems()
+            
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }
     }
 }
