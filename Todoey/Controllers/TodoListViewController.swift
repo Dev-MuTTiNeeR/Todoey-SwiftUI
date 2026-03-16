@@ -25,37 +25,38 @@ class TodoListViewController: SwipeTableViewController {
         super.viewDidLoad()
         
         tableView.separatorEffect = .none
+        setupNavigationBar()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
+    // MARK: - UI Setup Methods
+    
+    private func setupNavigationBar() {
         guard
             let categoryHex = selectedCategory?.color,
             let navBarColor = UIColor(hexString: categoryHex)
         else { return }
-
+        
         title = selectedCategory?.name
-
+        
         let contrastColor = navBarColor.contrastingText()
-
         let appearance = UINavigationBarAppearance()
+        
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = navBarColor
         appearance.titleTextAttributes = [.foregroundColor: contrastColor]
         appearance.largeTitleTextAttributes = [.foregroundColor: contrastColor]
-
+        
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance
         navigationItem.compactAppearance = appearance
-
+        
         navigationController?.navigationBar.tintColor = contrastColor
-
+        
         searchBar.barTintColor = navBarColor
         searchBar.tintColor = contrastColor
         tableView.backgroundColor = navBarColor
+        
     }
-    
     
     // MARK: - Tableview Datasource Methods
     

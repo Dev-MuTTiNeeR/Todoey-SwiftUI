@@ -16,10 +16,37 @@ class CategoryViewController: SwipeTableViewController {
     var lastSelectedColorHex: String?
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        loadCategories()
-    }
+            super.viewDidLoad()
+            loadCategories()
+            
+            // İlk açılışta Todoey mavisini ayarla
+            updateNavBar(with: "1D9BF6")
+        }
+    
+    // MARK: - Navigation Bar Colors
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        
+//        let navBarHex = lastSelectedColorHex ?? "1D9BF6"
+//        
+//        if let navBarColor = UIColor(hexString: navBarHex) {
+//            let appearance = UINavigationBarAppearance()
+//            appearance.configureWithOpaqueBackground()
+//            appearance.backgroundColor = navBarColor
+//            
+//            let contrastColor = navBarColor.contrastingText()
+//            appearance.titleTextAttributes = [.foregroundColor: contrastColor]
+//            appearance.largeTitleTextAttributes = [.foregroundColor: contrastColor]
+//            
+//            // Tüm geciktiricileri sildik, sadece sayfanın kendi item'ına rengi verdik
+//            navigationItem.standardAppearance = appearance
+//            navigationItem.scrollEdgeAppearance = appearance
+//            navigationItem.compactAppearance = appearance
+//            
+//            navigationController?.navigationBar.tintColor = contrastColor
+//        }
+//    }
     
     
     // MARK: - TableView Datasource Methods
@@ -52,12 +79,19 @@ class CategoryViewController: SwipeTableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! TodoListViewController
-        
-        if let indexPath = tableView.indexPathForSelectedRow {
-            destinationVC.selectedCategory = categories?[indexPath.row]
+            let destinationVC = segue.destination as! TodoListViewController
+            
+            if let indexPath = tableView.indexPathForSelectedRow {
+                let category = categories?[indexPath.row]
+                destinationVC.selectedCategory = category
+                
+                // İŞTE SİHİR BURADA: Kullanıcı diğer sayfaya geçerken rengi güncelliyoruz!
+                if let colorHex = category?.color {
+                    self.lastSelectedColorHex = colorHex
+                    self.updateNavBar(with: colorHex)
+                }
+            }
         }
-    }
     
     
     // MARK: - Data Manipulation Methods
@@ -112,5 +146,23 @@ class CategoryViewController: SwipeTableViewController {
         
         alert.addAction(action)
         present(alert, animated: true)
+    }
+    
+    private func updateNavBar(with hexCode: String) {
+        guard let navBarColor = UIColor(hexString: hexCode) else { return }
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = navBarColor
+        
+        let contrastColor = navBarColor.contrastingText()
+        appearance.titleTextAttributes = [.foregroundColor: contrastColor]
+        appearance.largeTitleTextAttributes = [.foregroundColor: contrastColor]
+        
+        navigationItem.standardAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
+        navigationItem.compactAppearance = appearance
+        
+        navigationController?.navigationBar.tintColor = contrastColor
     }
 }
