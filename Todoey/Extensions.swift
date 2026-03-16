@@ -65,4 +65,19 @@ extension UIColor {
         
         return luminance > 0.5 ? UIColor.black : UIColor.white
     }
+    
+    // 5. Generating a Lighter Version of the Color (for the Gradient)
+    
+    // Percentage: Between 0.0% and 100.0%. The larger the value, the closer it gets to white.
+    func lighter(by persentage: CGFloat = 30.0) -> UIColor? {
+        var hue: CGFloat = 0, saturation: CGFloat = 0, brightness: CGFloat = 0, alpha: CGFloat = 0
+        
+        // We get the current HSB (Color, Saturation, Brightness) values ​​of the color.
+        if self.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha) {
+            
+            // We "lighten" the color by increasing the brightness value (we keep it fixed at a maximum of 100%)
+            return UIColor(hue: hue, saturation: saturation, brightness: min(1.0, brightness - persentage / 100.0), alpha: alpha)
+        }
+        return nil
+    }
 }

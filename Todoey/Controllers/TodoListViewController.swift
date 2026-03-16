@@ -22,8 +22,31 @@ class TodoListViewController: SwipeTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.separatorEffect = .none
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        title = "\(selectedCategory!.name)"
+        
+        if let categoryColorHex = selectedCategory?.color {
+            if let navBarColor = UIColor(hexString: categoryColorHex) {
+                let appearance = UINavigationBarAppearance()
+                appearance.configureWithOpaqueBackground()
+                appearance.backgroundColor = navBarColor
+                
+                let contrastColor = navBarColor.contrastingText()
+                appearance.titleTextAttributes = [.foregroundColor: contrastColor]
+                
+                navigationController?.navigationBar.standardAppearance = appearance
+                navigationController?.navigationBar.scrollEdgeAppearance = appearance
+                
+                navigationController?.navigationBar.tintColor = contrastColor
+            }
+        }
+    }
     
     
     // MARK: - Tableview Datasource Methods
@@ -33,16 +56,29 @@ class TodoListViewController: SwipeTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        let totalItemCount = CGFloat(todoItems?.count ?? 0)
         
         if let item = todoItems?[indexPath.row] {
-            cell.textLabel?.text = item.title
-            
-            // Ternary operator ==>
-            // value = condition ? valueIfTrue : valueIfFalse
-            
-            cell.accessoryType = item.done ? .checkmark : .none
+            if let categoryColorHex = selectedCategory?.color {
+                if let baseColor = UIColor(hexString: categoryColorHex) {
+                    let cellColorPercentage = (CGFloat(indexPath.row) / totalItemCount) * 80
+                    
+                    if let cellColor = baseColor.lighter(by: cellColorPercentage) {
+                        cell.backgroundColor = cellColor
+                        
+                        cell.textLabel?.textColor = cellColor.contrastingText()
+                        cell.textLabel?.text = item.title
+                        
+                        cell.textLabel?.font = UIFont.systemFont(ofSize: 22, weight: .semibold)
+                        
+                        if item.done{
+                            cell.tintColor = cellColor.contrastingText()
+                        }
+                        cell.accessoryType = item.done ? .checkmark : .none
+                    }
+                }
+            }
         } else {
             cell.textLabel?.text = "No Items Added"
         }
@@ -116,10 +152,10 @@ class TodoListViewController: SwipeTableViewController {
     
     // MARK: - Delete Data From Swipe
     override func updateModel(at indexPath: IndexPath) {
-        if let categoryForDeletion = self.todoItems?[indexPath.row] {
+        if let itemForDeletion = self.todoItems?[indexPath.row] {
             do {
                 try self.realm.write {
-                    self.realm.delete(categoryForDeletion)
+                    self.realm.delete(itemForDeletion)
                 }
                 tableView.deleteRows(at: [indexPath], with: .left)
             } catch {
