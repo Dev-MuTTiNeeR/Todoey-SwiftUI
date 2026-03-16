@@ -23,32 +23,6 @@ class CategoryViewController: SwipeTableViewController {
             updateNavBar(with: "1D9BF6")
         }
     
-    // MARK: - Navigation Bar Colors
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        
-//        let navBarHex = lastSelectedColorHex ?? "1D9BF6"
-//        
-//        if let navBarColor = UIColor(hexString: navBarHex) {
-//            let appearance = UINavigationBarAppearance()
-//            appearance.configureWithOpaqueBackground()
-//            appearance.backgroundColor = navBarColor
-//            
-//            let contrastColor = navBarColor.contrastingText()
-//            appearance.titleTextAttributes = [.foregroundColor: contrastColor]
-//            appearance.largeTitleTextAttributes = [.foregroundColor: contrastColor]
-//            
-//            // Tüm geciktiricileri sildik, sadece sayfanın kendi item'ına rengi verdik
-//            navigationItem.standardAppearance = appearance
-//            navigationItem.scrollEdgeAppearance = appearance
-//            navigationItem.compactAppearance = appearance
-//            
-//            navigationController?.navigationBar.tintColor = contrastColor
-//        }
-//    }
-    
-    
     // MARK: - TableView Datasource Methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -147,6 +121,8 @@ class CategoryViewController: SwipeTableViewController {
         alert.addAction(action)
         present(alert, animated: true)
     }
+    
+    // MARK: - Navigation Bar Colors
     
     private func updateNavBar(with hexCode: String) {
         guard let navBarColor = UIColor(hexString: hexCode) else { return }
