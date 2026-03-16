@@ -15,6 +15,7 @@ class SwipeTableViewController: UITableViewController {
         super.viewDidLoad()
         
         tableView.allowsMultipleSelectionDuringEditing = false
+        tableView.rowHeight = 80.0
         
     }
     
