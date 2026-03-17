@@ -74,6 +74,6 @@ class DatabaseManager {
     }
     
     func searchItems(in category: Category, with text: String) -> Results<Item> {
-        return category.items.filter("title CONTAINS[cd] %@", text).sorted(byKeyPath: "dataCreated", ascending: true)
+        return category.items.filter("title CONTAINS[cd] %@", text).sorted(byKeyPath: "dateCreated", ascending: true)
     }
 }
