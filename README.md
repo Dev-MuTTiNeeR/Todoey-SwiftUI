@@ -24,9 +24,9 @@ This project strictly follows **Clean Code** principles and modern iOS developme
 
 ## 📸 Screenshots
 
-| Categories | Tasks (Items) | Search & Filter |
+| Categories | Tasks (Items & Category) | Search & Filter |
 | :---: | :---: | :---: |
-| <img src="https://github.com/user-attachments/assets/b353ad23-31c3-4dd8-961d-8a03fca82c38" width="250"> | <img src="[ADD_YOUR_SCREENSHOT_LINK_HERE]" width="250"> | <img src="[ADD_YOUR_SCREENSHOT_LINK_HERE]" width="250"> |
+| <img src="https://github.com/user-attachments/assets/b353ad23-31c3-4dd8-961d-8a03fca82c38" width="250"> |  <img src="https://github.com/user-attachments/assets/48fa830a-3667-4717-93e0-57ac8d7900df" width="250"> | <img src="[ADD_YOUR_SCREENSHOT_LINK_HERE]" width="250"> |
 
 *(Note: Add your actual screenshot image links above)*
 
