@@ -4,9 +4,9 @@ A modern, highly optimized, and beautifully designed iOS Task Management applica
 
 ## 📸 Application Showcase
 
-| Category List | Task Gradients | Search & Filter | Add New Items |
-| :---: | :---: | :---: | :---: |
-| <img src="https://github.com/user-attachments/assets/659ad60a-cd1d-4be5-8c49-36aa85bc14d6" width="200"> | <img src="https://github.com/user-attachments/assets/400f0793-4239-45f2-98a9-8bf2eb6c964c" width="200"> | <img src="https://github.com/user-attachments/assets/41c996dc-de84-4e4e-8328-12e052fd6a51" width="200"> | <img src="https://github.com/user-attachments/assets/300356ab-bfd7-41c7-9290-37b7bc455540" width="200"> |
+| Category List | Task Gradients | Search & Filter | Add New Items | Delete A Row |
+| :---: | :---: | :---: | :---: | :---: |
+| <img src="https://github.com/user-attachments/assets/659ad60a-cd1d-4be5-8c49-36aa85bc14d6" width="200"> | <img src="https://github.com/user-attachments/assets/400f0793-4239-45f2-98a9-8bf2eb6c964c" width="200"> | <img src="https://github.com/user-attachments/assets/41c996dc-de84-4e4e-8328-12e052fd6a51" width="200"> | <img src="https://github.com/user-attachments/assets/300356ab-bfd7-41c7-9290-37b7bc455540" width="200"> | <img src="https://github.com/user-attachments/assets/410d01c9-9317-49b2-a2ae-28cb9575788c" width="200">
 
 ## ✨ Features
 
